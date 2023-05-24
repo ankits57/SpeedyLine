@@ -19,7 +19,7 @@ def main_screen():
     main_screen = Toplevel(root)
     main_screen.title("SPEEDY LINE")
     main_screen.geometry("1200x700")
-    canvas1 = Canvas(main_screen, width=700, height=100, relief='raised', bg="white")
+    canvas1 = Canvas(main_screen, width=700, height=100, relief='raised', bg="black")
     canvas1.pack()
 
     label1 = Label(main_screen, text='SPEEDY LINE')
@@ -49,7 +49,7 @@ def main_screen():
         canvas1 = Canvas(registration, width=700, height=100, relief='raised', bg="white")
         canvas1.pack()
 
-        label1 = Label(registration, text='REGISTRTAION')
+        label1 = Label(registration, text='REGISTRATION')
         label1.config(font=("bold", 40), bg="white")
         canvas1.create_window(350, 50, window=label1)
 
@@ -457,6 +457,7 @@ def main_screen():
                     return str
 
                 relaphone1 = convertTuple(relaphone11)
+                relp1 = str(relaphone1)
                 relaphonelabel1 = Label(fetch, text='' + str(relaphone1))
                 relaphonelabel1.config(font=('helvetica', 14,), bg="white", fg="red")
                 canvas2.create_window(225, 350, window=relaphonelabel1)
@@ -472,6 +473,7 @@ def main_screen():
                     return str
 
                 relaphone2 = convertTuple(relaphone21)
+                relp2 = str(relaphone2)
                 relaphonelabel2 = Label(fetch, text='' + str(relaphone2))
                 relaphonelabel2.config(font=('helvetica', 14,), bg="white", fg="red")
                 canvas2.create_window(225, 390, window=relaphonelabel2)
@@ -483,6 +485,27 @@ def main_screen():
                 img = ImageTk.PhotoImage(img)
                 label = Label(fetch, image=img, width=100, height=100)
                 canvas2.create_window(65, 460, window=label)
+
+                def sendsms():
+                    url = "https://www.fast2sms.com/dev/bulkV2"
+
+                    querystring = {
+                        "authorization": "ISn9AoN5DT4cYshMUKa7Zu0L6Et2degjXRF8PWx3fmkbQVJzOGX5eDox3Vzkv2pjn6B0ICuFE7MbHAQg",
+                        "message": "This is test message", "language": "english", "route": "q",
+                        "numbers": "" + str(relp1) + "," + str(relp2)}
+
+                    headers = {
+                        'cache-control': "no-cache"
+                    }
+
+                    response = requests.request("GET", url, headers=headers, params=querystring)
+
+                    print(response.text)
+                    print(relp1)
+                    print(relp2)
+
+                sendsms = Button(fetch, text='Send SMS', command=sendsms, font=('helvetica', 14, 'bold'))
+                canvas2.create_window(750, 450, window=sendsms)
 
             except mysql.connector.Error as error:
                 print("Failed to get from customer table {}".format(error))
@@ -1168,7 +1191,30 @@ def main_screen():
 
                         shutil.rmtree(newpath)
 
+                        def sendsms():
+                            url = "https://www.fast2sms.com/dev/bulkV2"
+
+                            querystring = {
+                                "authorization": "ISn9AoN5DT4cYshMUKa7Zu0L6Et2degjXRF8PWx3fmkbQVJzOGX5eDox3Vzkv2pjn6B0ICuFE7MbHAQg",
+                                "message": "This is test message", "language": "english", "route": "q",
+                                "numbers": "" + str(relp1) + "," + str(relp2)}
+
+                            headers = {
+                                'cache-control': "no-cache"
+                            }
+
+                            response = requests.request("GET", url, headers=headers, params=querystring)
+
+                            print(response.text)
+                            print(relp1)
+                            print(relp2)
+
+                        sendsms = Button(fetch, text='Send SMS', command=sendsms, font=('helvetica', 14, 'bold'))
+                        canvas2.create_window(750, 450, window=sendsms)
                         break
+
+
+
                 except mysql.connector.Error as error:
                     print("Failed to get from customer table {}".format(error))
 
@@ -1178,26 +1224,7 @@ def main_screen():
                         mydb.close()
                         # print("Fetching Information, Please Wait....")
 
-                def sendsms():
-                    url = "https://www.fast2sms.com/dev/bulkV2"
 
-                    querystring = {
-                        "authorization": "ISn9AoN5DT4cYshMUKa7Zu0L6Et2degjXRF8PWx3fmkbQVJzOGX5eDox3Vzkv2pjn6B0ICuFE7MbHAQg",
-                        "message": "This is test message", "language": "english", "route": "q",
-                        "numbers": "" + str(relp1) + "," + str(relp2)}
-
-                    headers = {
-                        'cache-control': "no-cache"
-                    }
-
-                    response = requests.request("GET", url, headers=headers, params=querystring)
-
-                    print(response.text)
-                    print(relp1)
-                    print(relp2)
-
-                sendsms = Button(fetch, text='Send SMS', command=sendsms, font=('helvetica', 14, 'bold'))
-                canvas2.create_window(750, 450, window=sendsms)
 
         fetchfinger = Button(fetch, text='Get Detail By Finger', command=submitfinger, font=('helvetica', 14, 'bold'))
         canvas2.create_window(750, 310, window=fetchfinger)
