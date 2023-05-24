@@ -491,7 +491,7 @@ def main_screen():
 
                     querystring = {
                         "authorization": "ISn9AoN5DT4cYshMUKa7Zu0L6Et2degjXRF8PWx3fmkbQVJzOGX5eDox3Vzkv2pjn6B0ICuFE7MbHAQg",
-                        "message": "This is test message", "language": "english", "route": "q",
+                        "message": "SPEEEDYLINE ALERT!!! \n, Your Relative "+name+" needs you .", "language": "english", "route": "q",
                         "numbers": "" + str(relp1) + "," + str(relp2)}
 
                     headers = {
@@ -1196,7 +1196,7 @@ def main_screen():
 
                             querystring = {
                                 "authorization": "ISn9AoN5DT4cYshMUKa7Zu0L6Et2degjXRF8PWx3fmkbQVJzOGX5eDox3Vzkv2pjn6B0ICuFE7MbHAQg",
-                                "message": "This is test message", "language": "english", "route": "q",
+                                "message": "SPEEEDYLINE ALERT!!! \n, Your Relative "+name+" needs you .", "language": "english", "route": "q",
                                 "numbers": "" + str(relp1) + "," + str(relp2)}
 
                             headers = {
